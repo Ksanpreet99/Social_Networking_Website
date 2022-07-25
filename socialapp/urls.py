@@ -1,0 +1,40 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from . import views
+
+urlpatterns = [
+    path("",views.login,name="login"),
+    path("can_not_view",views.can_not_view,name="can_not_view"),
+    path("login",views.login,name="login"),
+    path("register",views.register,name="register"),
+    path("logout",views.logout,name="logout"),
+    path("reset_password",auth_views.PasswordResetView.as_view(template_name="password_reset.html"),
+    name="reset_password"),
+    path("reset_password_sent",auth_views.PasswordResetDoneView.as_view(template_name="password_reset_sent.html"),
+    name="password_reset_done"),
+    path("reset/<uidb64>/<token>",auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_form.html"),
+    name="password_reset_confirm"),
+    path("reset_password_complete",auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),
+    name="password_reset_complete"),
+    path("my_profile/<username>",views.my_profile,name="my_profile"),
+    path("friends_profile/<username>",views.friends_profile,name="friends_profile"),
+    path("index/<username>",views.index,name="index"),
+    path("edit_profile/<username>",views.edit_profile,name="edit_profile"),
+    path("edit_interest/<username>",views.edit_interest,name="edit_interest"),
+    path("delete_interest/<int:id>",views.delete_interest,name="delete_interest"),
+    path("delete_post/<int:id>",views.delete_post,name="delete_post"),
+    path("edit_password/<username>",auth_views.PasswordChangeView.as_view(template_name='edit_password.html',success_url = 'reset_password_complete'),
+    name="edit_password"),
+    path("timeline/<username>",views.timeline,name="timeline"),
+    path("photos/<username>",views.photos,name="photos"),
+    path("videos/<username>",views.videos,name="videos"),
+    path("like/<username>",views.like_post,name="like_post"),
+    path("post/<id>",views.share_post,name="share_post"),
+    path("timelinefriends/<username>",views.timelinefriends,name="timelinefriends"),
+    path("friends_time_line/<username>",views.friends_time_line,name="friends_time_line"),
+    path("send_friend_request/<int:userID>",views.send_friend_request,name="send_friend_request"),
+    path("accept_friend_request/<int:requestID>",views.accept_friend_request,name="accept_friend_request"),
+    path("delete_friend/<int:requestID>",views.delete_friend,name="delete_friend"),
+    path("delete_friend_request/<int:requestID>",views.delete_friend_request,name="delete_friend_request"),
+    
+]

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+{%load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Junction- {{profile.first_name}}'s Profile</title>
+    <link rel="icon" href="{% static 'images/logo1.png'%}" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="{%static 'css/main.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/color.css'%}">
+    <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="{%url 'index' user.username%}" title=""><img src="{% static 'images/logo1.png' %}" style="width: 55px; height: 55px;" alt=""><br>Junction</a>
+			</span>
+			
+		</div>
+		<nav id="menu" class="res-menu">
+			<ul>
+				<li><span><a href="{%url 'index' user.username%}" title="">Feeds</a></span>
+					
+				</li>
+				<li><span><a href="{% url 'my_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">View Profile</a></span>
+					
+				</li>
+				<li><span><a href="{% url 'edit_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">Edit Profile</a></span>
+					
+				
+				<li><span><a href="{%url 'timelinefriends' user.username%}" title="">friends</a></span>
+					
+				</li>
+				<li><span><a href="/logout" title="">Logout</a></span>
+					
+				</li>
+				
+			</ul>	
+		</nav>
+		
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="{%url 'index' user.username%}"><img src="{% static 'images/logo1.png' %}" alt="" style="width: 55px; height: 55px;">Junction</a>
+			
+		</div>
+		
+		<div class="top-area">
+			
+			<ul class="setting-area">
+				
+				<li><h5 style="font-family: Hobostd; padding: 5px; margin-top: 5px;">{{user.username}}</h5></li>
+				</ul>
+		
+			<div class="user-img">
+				<a href="{% url 'my_profile' user.username%}" class="user-img"><img src="{{ user.profile.profile_photo.url }}" style="height: 50px;" alt=""></a>
+
+				
+			</div>
+			<!-- <span class="ti-menu main-menu" data-ripple=""></span> -->
+		</div>
+	</div><!-- topbar -->	
+		
+	<section>
+		<div class="feature-photo">
+			<figure><img src="{{ profile.cover_photo.url}}" style="height:400px" alt=""></figure>
+			<div class="add-btn">
+				<span>{{profile.get_friends_no}} Friends</span>
+				{% if profile.user not in request.user.profile.friends.all %}
+				<a href="{%url 'send_friend_request' profile.user.id%}?next={{request.path}}" title="" data-ripple="" >Add Friend</a>
+				{% endif%}
+			</div>
+			
+			<div class="container-fluid">
+				<div class="row merged">
+					<div class="col-lg-2 col-sm-3">
+						<div class="user-avatar">
+							<figure>
+								
+								<a class="strip" href="{{ profile.profile_photo.url }}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+									<img src="{{ profile.profile_photo.url }}" style="height:200px;" alt="">
+									</a>
+								<!---->
+							</figure>
+						</div>
+						</div>
+					
+				
+					<div class="col-lg-10 col-sm-9">
+						<div class="timeline-info">
+							<ul>
+								<li class="admin-name">
+								  <h5>{{profile.first_name}} {{profile.last_name}}</h5>
+								  {% if profile.is_verified %}
+									<h5><span><i  class="fa fa-check-circle" ></i></span></h5>
+									{%endif%}
+								</li>
+										
+								
+								{% for message in messages %}
+						<li id="messages">*{{ message }}</li>
+					{% endfor %}		
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- top area -->
+		
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								
+								<aside class="sidebar static">
+									
+								<div class="widget stick-widget">
+									<h4 class="widget-title">Profile intro</h4>
+									<ul class="short-profile">
+										<li>
+											<span>about</span>
+											<p>{{profile.about_me}}</p>
+										</li>
+										
+										<li>
+											<span>Interest In</span>
+											{% for i in interest %}
+											<p>{{i.interest}}</p>
+											{% endfor %}
+										</li>
+										<li></li>
+										
+										
+									</ul>
+								</div>							
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+								<div class="widget">
+								<div class="central-meta">
+									
+									<div class="about">
+										<div class="personal">
+											<h5 class="f-title"><i class="ti-info-alt"></i> Personal Info</h5>
+											<p>
+											</p>
+										</div>
+										<div class="d-flex flex-row mt-2">
+											<ul class="nav nav-tabs nav-tabs--vertical nav-tabs--left" >
+												<li class="nav-item">
+													<a href="#basic" class="nav-link active" data-toggle="tab" >Basic info</a>
+												</li>
+												<li class="nav-item">
+													<a href="#location" class="nav-link" data-toggle="tab" >location</a>
+												</li>
+												<li class="nav-item">
+													<a href="#work" class="nav-link" data-toggle="tab" >work and education</a>
+												</li>
+												<li class="nav-item">
+													<a href="#interest" class="nav-link" data-toggle="tab"  >interests</a>
+												</li>
+												
+											</ul>
+											<div class="tab-content">
+												<div class="tab-pane fade show active" id="basic" >
+													<ul class="basics">
+														<li><i class="ti-user"></i>{{profile.first_name}} {{profile.last_name}}</li>
+														<li><i class="ti-location-pin"></i>Live in {{profile.city}},{{profile.country}}</li>
+														<li><i class="ti-mobile"></i>{{profile.phone_no}}</li>
+														<li><i class="ti-email"></i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4553494e515d55507c59515d5550125f5351">{{profile.user.email}}</a></li>
+													</ul>
+												</div>
+												<div class="tab-pane fade" id="location" role="tabpanel">
+													<div class="location-map">
+														<div id="map-canvas"></div>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="work" role="tabpanel">
+													<div>
+														{%if profile.work_as%} 
+														<i class="ti-briefcase"></i>
+														<a href="#" title="">{{profile.work_at}}</a>
+														
+														<p>work as {{profile.work_as}} in {{profile.work_at}},{{profile.work_city}},{{profile.work_country}}</p> 
+														{% endif %}
+														<i class="ti-book"></i>
+														<a href="#" title="">Education</a>
+														<ul class="education">
+															{% if profile.post_graduate %}
+															<li><i class="ti-medall"></i> {{profile.p_course}} from {{profile.p_study_at}}</li>
+														
+															{% elif profile.graduate %}
+															<li><i class="ti-medall-alt"></i> {{profile.g_course}} from {{profile.study_at}}</li>
+															{%else%}
+															<li><i class="ti-medall-alt"></i>  No Information</li>
+
+															{% endif %}
+														</ul>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="interest" role="tabpanel">
+													<ul class="basics">
+														{% for i in interest %}
+														<li>{{i.interest}}</li>
+														{% endfor %}
+													</ul>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								</div>	
+							</div><!-- centerl meta -->
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									<div class="widget stick-widget">
+										<h4 class="widget-title">Shortcuts</h4>
+										<ul class="naves">
+											<li>
+												<i class="ti-user"></i>
+												<a href="{% url 'friends_profile' username%}" title="">{{profile.first_name}}'s Profile</a>
+											</li>
+
+											{% if profile.user in request.user.profile.friends.all %}
+											<li>
+												<i class="ti-time"></i>
+												<a href="{% url 'friends_time_line' username%}" title="" data-toggle="tooltip" data-placement="right">{{profile.first_name}}'s Time Line</a>
+											</li>
+											{%endif%}
+											
+											<li>
+												<i class="ti-power-off"></i>
+												<a href="/logout" title="">Logout</a>
+											</li>
+										</ul>
+									</div><!-- Shortcuts -->
+									<!-- who's following -->
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+	
+
+	<footer>
+		
+	</footer><!-- footer -->
+	
+</div>
+<!-- side panel -->		
+
+<script src="{%static 'js/main.min.js'%}"></script>
+<script src="{%static 'js/script.js'%}"></script>
+<script src="{%static 'js/map-init.js'%}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+</body>	
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+{% load social_share %}
+{%load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Junction- Timeline</title>
+    <link rel="icon" href="{% static 'images/logo1.png'%}" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="{%static 'css/main.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/color.css'%}">
+    <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="{%url 'index' user.username%}" title=""><img src="{% static 'images/logo1.png' %}" style="width: 55px; height: 55px;" alt=""><br>Junction</a>
+			</span>
+			
+		</div>
+		
+		<nav id="menu" class="res-menu">
+			<ul>
+				<li><span><a href="{%url 'index' user.username%}" title="">Feeds</a></span>
+					
+				</li>
+				<li><span><a href="{% url 'my_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">View Profile</a></span>
+					
+				</li>
+				<li><span><a href="{% url 'edit_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">Edit Profile</a></span>
+					
+				
+				<li><span><a href="{%url 'timelinefriends' user.username%}" title="">friends</a></span>
+					
+				</li>
+				<li><span><a href="/logout" title="">Logout</a></span>
+					
+				</li>
+				
+			</ul>	
+		</nav>
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="{%url 'index' user.username%}"><img src="{% static 'images/logo1.png' %}" alt="" style="width: 55px; height: 55px;">Junction</a>
+			
+		</div>
+		
+		<div class="top-area">
+			
+			<ul class="setting-area">
+				
+				<li><h5 style="font-family: Hobostd; padding: 5px; margin-top: 5px;">{{user.username}}</h5></li>
+				</ul>
+		
+			<div class="user-img">
+				<a href="{% url 'my_profile' user.username%}" class="user-img"><img src="{{ user.profile.profile_photo.url }}" style="height: 50px;" alt=""></a>
+
+				
+			</div>
+			<!-- <span class="ti-menu main-menu" data-ripple=""></span> -->
+		</div>
+	</div><!-- topbar -->	
+		
+	<section>
+		<div class="feature-photo">
+			<figure><img src="{{ profile.cover_photo.url}}" style="height:400px" alt=""></figure>
+			<div class="add-btn">
+				<span>{{profile.get_friends_no}} Friends</span>
+				
+			</div>
+			
+			<div class="container-fluid">
+				<div class="row merged">
+					<div class="col-lg-2 col-sm-3">
+						<div class="user-avatar">
+							<figure>
+								<a class="strip" href="{{ profile.profile_photo.url }}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+									<img src="{{ profile.profile_photo.url }}" style="height:200px;" alt="">
+									</a>
+								
+								<!---->
+							</figure>
+						</div>
+						</div>
+					
+				
+					<div class="col-lg-10 col-sm-9">
+						<div class="timeline-info">
+							<ul>
+								<li class="admin-name">
+								  <h5>{{profile.first_name}} {{profile.last_name}}</h5>
+								  {% if profile.is_verified %}
+									<h5><span><i  class="fa fa-check-circle" ></i></span></h5>
+									{%endif%}
+								</li>
+								<li>
+									<a class="active" href="{% url 'timeline' user.username %}" title="" data-ripple="">time line</a>
+									<a class="" href="{% url 'timelinefriends' user.username%}" title="" data-ripple="">Friends</a>
+									<a href="{% url 'my_profile' user.username%}" title="" data-ripple="">profile</a>
+									<a  class="" href="{% url 'photos' user.username%}" title="" data-ripple="">Photos</a>
+									<a  class="" href="{% url 'videos' user.username%}" title="" data-ripple="">Videos</a>
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- top area -->
+		
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									
+									<div class="widget">
+										<h4 class="widget-title">Shortcuts</h4>
+										<ul class="naves">
+											<li>
+												<i class="ti-clipboard"></i>
+												<a href="{% url 'index' user.username%}" title="">Feeds</a>
+											</li>
+											<li>
+												<i class="ti-user"></i>
+												<a href="{% url 'my_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">View Profile</a>
+											</li>
+											<li>
+												<i class="ti-pencil-alt"></i>
+												<a href="{% url 'edit_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">Edit Profile</a>
+											</li>
+											<li>
+												<i class="ti-user"></i>
+												<a href="{% url 'timelinefriends' user.username%}" title="">friends</a>
+											</li>
+											
+											<li>
+												<i class="ti-power-off"></i>
+												<a href="/logout" title="">Logout</a>
+											</li>
+										</ul>
+									</div><!-- Shortcuts -->
+									<div class="widget stick-widget">
+										<h4 class="widget-title">Recent Comments</h4>
+										<ul class="activitiez">
+											{%for r in recent_comment%}
+											{% if r.post.user.id is request.user.id %}
+											{% if r.user.id is not request.user.id %}
+											<li>
+												<div class="activity-meta">
+													<i>{{r.created_at}}</i>
+													<span><a href="#" title="">{{r.comment_text}}</a></span>
+													<span><a href="#" title="">Comment on your post</a></span>
+													<h6>by <a href="">{{r.user.profile.first_name}} {{r.user.profile.last_name}} </a></h6>
+												</div>
+											</li>
+											{% endif %}
+											{% endif %}
+											{%endfor%}
+										</ul>
+									</div><!-- recent activites -->
+									
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+								<div class="loadMore">
+									<div class="central-meta item">
+										
+										<div class="new-postbox">
+											<figure>
+												<img src="{{ user.profile.profile_photo.url }}" style="height: 65px;" alt="">
+											</figure>
+											<div class="newpst-input">
+												<form method="post" enctype='multipart/form-data'>
+													{% csrf_token %}
+													<input type="hidden" name="user" value="{{ user.id }}">
+													<div>
+													{{form.post_text|as_crispy_field}}
+													</div>
+													<div class="attachments">
+														<ul>
+															<li>
+																<div class="form-group">
+																<div class="fileContainer_photo">
+																	<i class="fa fa-image"  style="font-size: 20px;display: inline-flex;"></i>
+																	{{form.post_img|as_crispy_field}}
+																	</div>
+																	</div>
+															</li>
+															<li>
+																<div class="form-group">
+																<div class="fileContainer_photo">
+																	<i class="fa fa-video-camera"  style="font-size: 20px;display: inline-flex;"></i>
+																	{{form.post_video|as_crispy_field}}
+																	</div>
+																</div>
+															</li>
+															<li>
+																
+																<div class="submit-btns">
+																	<input class="mtr-btn-signup"  type="submit" value="Post" style="color: white; font-weight: bold; height: 30px; width: 60px;">
+																</div>
+																
+															</li>
+														</ul>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div><!-- add post new box -->
+									
+									
+										{% if post %}
+										{% for p in post %}
+										<div class="central-meta item">
+										<div class="user-post">
+											<div class="friend-info">
+												<figure>
+													<img src="{{ profile.profile_photo.url }}" alt="">
+												</figure>
+												<div class="friend-name">
+													<a href="{%url 'delete_post' p.id%}?next={{request.path}}" style="float: right;"><span class="remove" title="remove"  data-toggle="tooltip" data-placement="left"><i class="fa fa-trash"></i></span></a> 
+													
+													<ins><a href="{% url 'timeline' user.username %}" title="">{{profile.first_name}} {{profile.last_name}}
+													{% if profile.is_verified %}
+													<span><i  class="fa fa-check-circle" ></i></span>
+													{%endif%}</a></ins>
+
+													<span>published: {{p.created_at}}</span>
+												</div>
+												<div class="description">
+														
+														<p style="font-size: 15px;">
+															{{p.post_text}}
+														</p>
+													</div>
+													{% if p.post_img %}
+												<div class="post-meta">
+														<a class="strip" href="{{p.post_img.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+
+														<img src="{{p.post_img.url}}" style="width: 600px;height:500px" alt="">
+														</a>
+												
+												</div>
+												{% endif%}
+												{% if p.post_video %}
+												<div class="post-meta">
+												<video width="100%" height="95%" controls="hidden" src="{{p.post_video.url}}">
+													
+												</div>
+												{% endif %}
+												
+												<div class="we-video-info">
+													<ul>
+													
+															
+														<li>
+														<form method="post" action="{% url 'like_post' user.username %}?next={{request.path}}">
+															{% csrf_token %}
+															<input type="hidden" name="post" value="{{ p.id }}">
+															
+																{% if user not in p.like.all %}
+																<button type="submit"  style="background: none;">
+																<span class="like" data-toggle="tooltip" title="like">
+																	<i class="fa fa-heart" style="color: #088dcd; font-size: 18px;"></i>
+																	<ins style="color: #088dcd; font-size: 10px;font-weight: bold;">{{p.like_count}}</ins>
+																</span></button>
+																{% else %}
+																<button type="submit"  style="background: none;">
+																
+																<span class="like" data-toggle="tooltip" title="unlike">
+																	<i class="fa fa-heart" style="color: red;font-size: 18px;"></i>
+																	<ins style="color:red;font-size: 10px;font-weight: bold;">{{p.like_count}}</ins>
+																</span></button>
+																{%endif%}
+															
+														</form>
+														</li>
+														
+														<li class="social-media">
+															<div class="menu">
+														  <div class="btn trigger" data-toggle="tooltip" title="Share"><a href="{% url 'share_post' p.id %}"><i class="fa fa-share-alt"></i></a></div>
+															  
+															 
+															  <!-- <div class="rotater">
+																<div class="btn btn-icon">{% post_to_facebook object_or_url "<i class='fa fa-facebook'></i>"%}</div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon">{% post_to_twitter  object_or_url "{{p}}" "<i class='fa fa-twitter'></i>"%}</div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon">{% post_to_gplus object_or_url "<i class='fa fa-google-plus'></i>"%}</div>
+															  </div>
+																<div class="rotater">
+																<div class="btn btn-icon">{% post_to_whatsapp  object_or_url "<i class='fa fa-whatsapp'></i>"%}</div>
+															  </div>
+															  -->
+	
+															</div>
+														</li>
+													</ul>
+												</div>
+												<div class="coment-area">
+													<ul class="we-comet">
+														{% for c in comment %}
+														{% if c.post.id is p.id %}
+														<li>
+															<div class="comet-avatar">
+																<img src="{{c.user.profile.profile_photo.url}}" style="height: 50px;" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	{%if c.user.id is user.id%}
+																	<h5><a href="{% url 'timeline' user.username%}" title="">{{user.profile.first_name}} {{user.profile.last_name}}</a></h5>
+																	{%else%}
+																	<h5><a href="{%url 'friends_profile' c.user.username%}" title="">{{c.user.profile.first_name}} {{c.user.profile.last_name}}</a></h5>
+
+																	{%endif %}
+																	<span>{{ c.created_at }}</span>
+																	<a class="we-reply" href="" title="Reply"><i class="fa fa-reply"></i></a>
+																</div>
+																<p>{{c.comment_text}}</p>
+																
+															</div>
+															</li>
+															{%endif%}
+															{% endfor %}
+															
+
+															
+														<li>
+															<a href="" title="" class="showmore underline">more comments</a>
+														</li>
+														<li class="post-comment">
+															<div class="comet-avatar">
+																<img src="{{ user.profile.profile_photo.url }}" alt="">
+															</div>
+															<div class="post-comt-box">
+																<form method="post">
+																	{% csrf_token %}
+																	<input type="hidden" name="user" value="{{ user.id }}">
+																	<input type="hidden" name="post" value="{{ p.id }}">
+																	
+																	{{comm_form.comment_text|as_crispy_field}}
+																	<!-- <div class="add-smiles" style="margin-right: 45px;">
+																		<span class="em em-blush" title="add icon" style="font-size: 18px;"></span>
+																	</div>
+																	<div class="smiles-bunch" style="margin-right: 45px;">
+																		<i class="em em---1"></i>
+																		<i class="em em-smiley"></i>
+																		<i class="em em-anguished"></i>
+																		<i class="em em-laughing"></i>
+																		<i class="em em-angry"></i>
+																		<i class="em em-astonished"></i>
+																		<i class="em em-blush"></i>
+																		<i class="em em-disappointed"></i>
+																		<i class="em em-worried"></i>
+																		<i class="em em-kissing_heart"></i>
+																		<i class="em em-rage"></i>
+																		<i class="em em-stuck_out_tongue"></i>
+																	</div>   -->
+																	<div class="add-smiles" style="margin-top:20px;">
+																	<button type="submit" style="height: 40px;background:none">
+																	<i class="fa fa-send we-reply" style="font-size: 25px;"></i></button>
+																	</div>
+																</form>	
+															</div>
+														</li>
+													</ul>
+												</div>
+											
+
+											
+											</div>
+										</div>
+										</div>
+										{% endfor %}
+										{% else %}
+										<h4 style="text-align: center;">Nothing to show</h4>
+									{%endif%}
+										
+										
+										
+									</div>
+									</div>
+									<!-- centerl meta -->
+								<div class="col-lg-3">
+								<aside class="sidebar static">
+																		
+									<div class="widget friend-list stick-widget">
+										<h4 class="widget-title">Friends</h4>
+										<div id="searchDir"></div>
+										<ul id="people-list" class="">
+											{% for friends in profile.friends.all %}
+											<li>
+												<figure>
+													<img src="{{friends.profile.profile_photo.url}}" alt="">
+													
+												</figure>
+												<div class="friendz-meta">
+													<a href="{% url 'friends_profile' friends.profile.user.username%}">{{friends.profile.first_name}} {{friends.profile.last_name}}</a>
+													
+											</li>
+											{%endfor%}
+									
+											
+										</ul>
+										</div>
+										<!-- friends list sidebar -->
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	<footer>
+		
+	</footer><!-- footer -->
+	</div>
+	<!-- side panel -->		
+	
+	<script src="{%static 'js/main.min.js'%}"></script>
+	<script src="{%static 'js/script.js'%}"></script>
+	<script src="{%static 'js/map-init.js'%}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+</body>	
+
+</html>

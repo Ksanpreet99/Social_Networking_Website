@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Junction- Edit Profile</title>
+	<link rel="icon" href="{% static 'images/logo1.png'%}" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="{%static 'css/main.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/color.css'%}">
+    <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="{%url 'index' user.username%}" title=""><img src="{%static 'images/logo1.png'%}" style="width: 55px; height: 55px;" alt=""><br>Junction</a>
+			</span>
+			
+		</div>
+		
+		<nav id="menu" class="res-menu">
+			<ul>
+				<li><span><a href="{%url 'index' user.username%}" title="">Feeds </a></span>
+					
+				</li>
+				<li><span><a href="{% url 'my_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">View Profile</a></span>
+					
+				</li>
+				<li><span><a href="{% url 'edit_profile' user.username%}" title="" data-toggle="tooltip" data-placement="right">Edit Profile</a></span>
+					
+				
+				<li><span><a href="{%url 'timelinefriends' user.username%}" title="">friends</a></span>
+					
+				</li>
+				<li><span><a href="/logout" title="">Logout</a></span>
+					
+				</li>
+				
+			</ul>	
+		</nav>
+		</nav>
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="{%url 'index' user.username%}"><img src="{%static 'images/logo1.png'%}" alt="" style="width: 55px; height: 55px;">Junction</a>
+			
+		</div>
+		
+		<div class="top-area">
+			
+			<ul class="setting-area">
+				
+				<li><h5 style="font-family: Hobostd; padding: 5px; margin-top: 5px;">{{user.username}}</h5></li>
+				</ul>
+		
+			<div class="user-img">
+				<a href="{% url 'my_profile' user.username%}" class="user-img"><img src="{{ user.profile.profile_photo.url }}" style="height: 50px;" alt=""></a>
+				
+				
+			</div>
+			<!-- <span class="ti-menu main-menu" data-ripple=""></span> -->
+		</div>
+	</div><!-- topbar -->
+	<div class="fixed-sidebar left">
+		<div class="menu-left">
+			<ul class="left-menu">
+				<li><a href="{%url 'index' user.username%}" title="Feeds" data-toggle="tooltip" data-placement="right"><i class="ti-magnet"></i></a></li>
+				<li><a href="{%url 'my_profile' user.username%}" title="View Profile" data-toggle="tooltip" data-placement="right"><i class="ti-user"></i></a></li>
+				<li><a href="{%url 'edit_profile' user.username%}" title="Edit Profile" data-toggle="tooltip" data-placement="right"><i class="ti-pencil-alt"></i></a></li>
+				<li><a href="{% url 'timelinefriends' user.username%}" title="Friends" data-toggle="tooltip" data-placement="right"><i class="ti-themify-favicon"></i></a></li>
+				<li><a href="{% url 'timeline' user.username%}" title="Timeline" data-toggle="tooltip" data-placement="right"><i class="ti-time"></i></a></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				
+				
+				<li><a href="/logout" title="Log Out" data-toggle="tooltip" data-placement="right"><i  class="ti-power-off"></i></a></li>
+				
+			</ul>
+		</div>
+		</div>
+
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row merged20" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static left">
+									<div class="widget">
+										<h4 class="widget-title">Recent Activity</h4>
+										<ul class="activitiez">
+											{%for r in recent_comment%}
+											{% if r.post.user.id is request.user.id %}
+											{% if r.user.id is not request.user.id %}
+											<li>
+												<div class="activity-meta">
+													<i>{{r.created_at}}</i>
+													<span><a href="#" title="">{{r.comment_text}}</a></span>
+													<span><a href="#" title="">Comment on your post</a></span>
+													<h6>by <a href="">{{r.user.profile.first_name}} {{r.user.profile.last_name}} </a></h6>
+												</div>
+											</li>
+											{% endif %}
+											{% endif %}
+											{%endfor%}
+										</ul>
+									</div>
+									<div class="widget stick-widget">
+										<h4 class="widget-title">Edit info</h4>
+										<ul class="naves">
+											<li>
+												<i class="ti-info-alt"></i>
+												<a title="" href="{% url 'edit_profile' user.username%}">Basic info</a>
+											</li>
+											<li>
+												<i class="ti-heart"></i>
+												<a title="" href="{% url 'edit_interest' user.username%}">My interests</a>
+											</li>
+											
+											<li>
+												<i class="ti-lock"></i>
+												<a title="" href="{% url 'edit_password' user.username%}">change password</a>
+											</li>
+										</ul>
+									</div><!-- settings widget -->										
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+								<div class="central-meta">
+									<div class="editing-info">
+										<h2>
+											{% for message in messages %}
+								<p id="messages">*{{ message }}</p>
+							{% endfor %}</h2>
+										<h5 class="f-title"><i class="ti-info-alt"></i> Edit Basic Information</h5>
+										<form method="post" enctype="multipart/form-data">
+											{%csrf_token%}
+											<div class="form-group half">
+											{{form.username|as_crispy_field}}
+											<i class="mtrl-select"></i>
+											</div>
+											<div class="form-group half">
+												{{form.email|as_crispy_field}}
+												<i class="mtrl-select"></i>
+												</div>
+										
+											<div class="form-group half">
+												{{p_form.first_name|as_crispy_field}}	
+											  <i class="mtrl-select"></i>
+											</div>
+											<div class="form-group half">	
+												{{p_form.last_name|as_crispy_field}}	
+											  <i class="mtrl-select"></i>
+											</div>
+											
+											<div class="form-group">	
+											  {{p_form.phone_no|as_crispy_field}}
+											  <i class="mtrl-select"></i>
+											</div>
+											
+												<div class="form-group">
+													{{p_form.DOB|as_crispy_field}}
+												</div>
+											
+											<div class="form-group">
+												{{p_form.gender|as_crispy_field}}
+												<i class="mtrl-select"></i>
+											</div>
+											<div class="form-group half">	
+											  {{p_form.city|as_crispy_field}}
+											  <i class="mtrl-select"></i>
+											</div>
+											<div class="form-group half">	
+											  {{p_form.country|as_crispy_field}}
+											</div>
+											
+											  <div class="form-group ">	
+												{{p_form.about_me|as_crispy_field}}
+												<i class="mtrl-select"></i>
+											  </div>
+											  <div style="margin-top: 30px;">
+											  <h5 class="f-title"><i class="ti-info-alt"></i> Edit work & Education</h5>
+												<div>
+													 <div class="form-group three">
+													{{p_form.graduate|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group three">
+													{{p_form.g_course|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group three">	
+													{{p_form.study_at|as_crispy_field}}
+												  <i class="mtrl-select"></i>
+												</div>
+												  <div class="form-group three">
+													{{p_form.post_graduate|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group three">
+													{{p_form.p_course|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group three">	
+													  {{p_form.p_study_at|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group half">	
+													{{p_form.work_as|as_crispy_field}}
+												<i class="mtrl-select"></i>
+											  </div>
+												  <div class="form-group half">	
+														{{p_form.work_at|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>
+												  <div class="form-group half">	
+													  {{p_form.work_city|as_crispy_field}}
+													<i class="mtrl-select"></i>
+												  </div>												
+												  <div class="form-group half">	
+													  {{p_form.work_country|as_crispy_field}}
+													<i class="mtrl-select"></i>
+													</div>
+													<div class="form-group half">	
+														<div class="fileContainer_photo">
+															<i class="fa fa-camera"  style="font-size: 20px;display: inline-flex;"></i>
+															<label>Profile Photo</label>
+															{{p_form.profile_photo|as_crispy_field}}
+															</div>
+													  </div>
+													  <div class="form-group half">	
+														<div class="fileContainer_photo">
+															<i class="fa fa-camera" style="font-size: 20px;display: inline-flex;"></i>
+															<label>Cover Photo</label>
+															{{p_form.cover_photo|as_crispy_field}}
+															</div>
+													  </div>
+												  </div>
+												  </div>
+												  
+												  
+												  
+											<div class="submit-btns">
+												<button type="reset" class="mtr-btn-signin" style="color: white; font-weight: bold;"><span>Cancel</span></button>
+												<input class="mtr-btn-signup"  type="submit" value="Update" style="color: white; font-weight: bold;">
+											</div>
+											
+											
+											
+										</form>
+										</div>
+										</div>
+									
+									</div>
+									
+								
+									
+									
+									
+							<!-- centerl meta -->
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									
+									<div class="widget friend-list stick-widget">
+										<h4 class="widget-title">Friends</h4>
+										<div id="searchDir"></div>
+										<ul id="people-list" class="">
+											{% for friends in profile.friends.all %}
+											<li>
+												<figure>
+													<img src="{{friends.profile.profile_photo.url}}" alt="">
+													
+												</figure>
+												<div class="friendz-meta">
+													<a href="{% url 'friends_profile' friends.profile.user.username%}">{{friends.profile.first_name}} {{friends.profile.last_name}}</a>
+													
+											</li>
+											{%endfor%}
+									
+											
+										</ul>
+										</div><!-- who's following -->
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			
+	</section>
+
+	<footer>
+		
+	</footer><!-- footer -->
+	
+</div>
+<!-- side panel -->		
+	
+<script src="{%static 'js/main.min.js'%}"></script>
+<script src="{%static 'js/script.js'%}"></script>
+<script src="{%static 'js/map-init.js'%}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+</body>	
+
+</html>

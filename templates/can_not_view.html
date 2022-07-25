@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load social_share %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Junction- !!</title>
+    <link rel="icon" href="{% static 'images/logo1.png'%}" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="{%static 'css/main.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/color.css'%}">
+    <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="{% url 'index' user.username%}" title=""><img src="{% static 'images/logo1.png' %}" style="width: 55px; height: 55px;" alt=""><br>Junction</a>
+			</span>
+			
+		</div>
+		
+		
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="{%url 'index' user.username%}"><img src="{% static 'images/logo1.png' %}" alt="" style="width: 55px; height: 55px;">Junction</a>
+			
+		</div>
+		
+		<div class="top-area">
+			
+			<ul class="setting-area">
+				
+				<li><h5 style="font-family: Hobostd; padding: 5px; margin-top: 5px;">{{user.username}}</h5></li>
+				</ul>
+		
+			<div class="user-img">
+				<a href="{% url 'my_profile' user.username%}" class="user-img"><img src="{{ user.profile.profile_photo.url }}" style="height: 50px;" alt=""></a>
+				
+			</div>
+			<!-- <span class="ti-menu main-menu" data-ripple=""></span> -->
+		</div>
+	</div><!-- topbar -->
+	
+	
+	</div><!-- side panel -->
+		
+	<div class="gap2 gray-bg">
+		<br><br><br><br>
+		<h4 class="widget-title" style="text-align: center">Sorry!!</br></br> You Can Not View This Page</h4>
+		<div class="submit-btns">
+			<a href="{%url 'index' user.username%}"><button class="mtr-btn-signin" style="color: white; font-weight: bold;margin-left: 46%;"><span>Back</span></button></a>
+			
+		</div>
+		<br><br><br><br><br><br><br>
+		<h6 class="widget-title" style="text-align: center">You don't have authorization to view this page.</h6>
+		<br><br><br><br><br><br><br><br>
+	</div>	
+	
+	
+	<script src="{%static 'js/main.min.js'%}"></script>
+	<script src="{%static 'js/script.js'%}"></script>
+	<script src="{%static 'js/map-init.js'%}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+</body>	
+</html>
