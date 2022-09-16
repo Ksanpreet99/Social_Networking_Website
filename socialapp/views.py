@@ -43,8 +43,6 @@ def register(request):
             mail_list = emails.split()
             print(mail_list)
             title = "Welcome! Thanks for creating an account at Junction."
-
-
             message = "\nHello " +username+",\n\nWelcome! We’d like to confirm that your account was created successfully.\nIf you experience any issues logging into your account, reach out to us at junction.skb@gmail.com.\n\nRegards,\n\nThe Junction Team"
             send_mail(
                 title,

@@ -192,7 +192,11 @@
 														<a href="{%url 'friends_profile' friends.profile.user.username %}" title=""><img src="{{friends.profile.profile_photo.url}}" alt=""></a>
 													</figure>
 													<div class="pepl-info">
-														<h4><a href="{%url 'friends_profile' friends.profile.user.username %}" title="">{{friends.profile.first_name}} {{friends.profile.last_name}}</a></h4>
+														<h4><a href="{%url 'friends_profile' friends.profile.user.username %}" title="">{{friends.profile.first_name}} {{friends.profile.last_name}}
+															{% if friends.profile.is_verified %}
+															<span><i  class="fa fa-check-circle" ></i></span>
+															{%endif%}
+														</a></h4>
 														<span>{{friends.profile.city}}</span>
 														
 														<a href="{% url 'delete_friend' friends.profile.user.id%}" title="" class="add-butn" data-ripple="">unfriend</a>
@@ -217,7 +221,11 @@
 														<a href="{%url 'friends_profile' r.sender.username %}" title=""><img src="{{r.sender.profile.profile_photo.url}}" alt=""></a>
 													</figure>
 													<div class="pepl-info">
-														<h4><a href="{%url 'friends_profile' r.sender.username %}" title="">{{r.sender.profile.first_name}} {{r.sender.profile.last_name}}</a></h4>
+														<h4><a href="{%url 'friends_profile' r.sender.username %}" title="">{{r.sender.profile.first_name}} {{r.sender.profile.last_name}}
+															{% if r.sender.profile.is_verified %}
+															<span><i  class="fa fa-check-circle" ></i></span>
+															{%endif%}
+														</a></h4>
 														<span>{{r.sender.profile.city}}</span>
 														<a href="{% url 'delete_friend_request' r.id %}" title="" class="add-butn more-action" data-ripple="">delete Request</a>
 														<a href="{% url 'accept_friend_request' r.id %}" title="" class="add-butn" data-ripple="">Confirm</a>
@@ -246,7 +254,11 @@
 													</figure>
 													<div class="pepl-info">
 														
-														<h4><a href="{%url 'friends_profile' i.profile.user.username%}" title="">{{i.profile.first_name}} {{i.profile.last_name}}</a></h4>
+														<h4><a href="{%url 'friends_profile' i.profile.user.username%}" title="">{{i.profile.first_name}} {{i.profile.last_name}}
+															{% if i.profile.is_verified %}
+															<span><i  class="fa fa-check-circle" ></i></span>
+															{%endif%}
+														</a></h4>
 														<span>{{i.profile.city}}</span>
 														
 														<a href="{%url 'send_friend_request' i.id%}?next={{request.path}}" title="" class="add-butn" data-ripple="">add friend</a>

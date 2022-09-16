@@ -111,6 +111,7 @@
 									<h5><span><i  class="fa fa-check-circle" ></i></span></h5>
 									{%endif%}
 								</li>
+								<span style="font-size: 15px;float:right;">Joined: {{profile.user.date_joined}}</span>
 								
 							</ul>
 						</div>
@@ -388,7 +389,11 @@
 													
 												</figure>
 												<div class="friendz-meta">
-													<a href="{% url 'friends_profile' friends.profile.user.username%}">{{friends.profile.first_name}} {{friends.profile.last_name}}</a>
+													<a href="{% url 'friends_profile' friends.profile.user.username%}">{{friends.profile.first_name}} {{friends.profile.last_name}}
+														{% if friends.profile.is_verified %}
+															<span><i  class="fa fa-check-circle" ></i></span>
+															{%endif%}
+													</a>
 													
 											</li>
 											{%endif%}
