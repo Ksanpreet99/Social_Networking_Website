@@ -150,7 +150,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'junction.skb@gmail.com' #Enter your email
-EMAIL_HOST_PASSWORD = 'bsxyvnwduvwgtjyh' #Enter the password to the email
+EMAIL_HOST_PASSWORD = 'pkfnryudwidamrii' #Enter the password to the email
 DEFAULT_FROM_EMAIL = 'junction.skb@gmail.com'
 
 JAZZMIN_SETTINGS = {
