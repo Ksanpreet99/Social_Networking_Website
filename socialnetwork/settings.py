@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-34jz#z6xoegr09)a%7c0(e-6-26$+_d6r2itq__^z@)zi^8j=5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.6','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -149,9 +149,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'junction.skb@gmail.com' #Enter your email
-EMAIL_HOST_PASSWORD = 'pkfnryudwidamrii' #Enter the password to the email
-DEFAULT_FROM_EMAIL = 'junction.skb@gmail.com'
+EMAIL_HOST_USER = '' #Enter your email
+EMAIL_HOST_PASSWORD = '' #Enter the password to the email
+DEFAULT_FROM_EMAIL = ''
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
