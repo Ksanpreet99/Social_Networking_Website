@@ -186,7 +186,7 @@ def delete_interest(request,id):
 def timeline(request,username):
     if username != request.user.username:
         return redirect(can_not_view) 
-    user=User.objects.get(username=username)
+    user=request.user
     profile=Profile.objects.get(user=user)
     post=Post.objects.filter(user=user).order_by('-created_at')
     comment=Comments.objects.all()
@@ -312,29 +312,20 @@ def timelinefriends(request,username):
     if username != request.user.username:
         return redirect(can_not_view) 
     recent_comment=Comments.objects.all().order_by('-created_at')[:5]
-    if request.user.username==username:
-        all_users=User.objects.all().exclude(id=request.user.id)
-        user=User.objects.get(username=username)
-        profile=Profile.objects.get(user=user)
-        friend_request=Friend_Request.objects.all() 
-        f_request=Friend_Request.objects.filter(receiver=request.user).count()
-        context={'username':username,
+    all_users=User.objects.all().exclude(id=request.user.id)
+    user=request.user  
+    profile=Profile.objects.get(user=user)
+    friend_request=Friend_Request.objects.all() 
+    f_request=Friend_Request.objects.filter(receiver=request.user).count()
+    context={'username':username,
                     'profile':profile,
                     'friend_request':friend_request,
                     'f_request':f_request,
                     'all_users':all_users,
                     'recent_comment':recent_comment
                     }
-        return render(request,"timeline-friends.html",context)
-    else:
-        user=User.objects.get(username=username)
-        profile=Profile.objects.get(user=user)
-        context={'username':username,
-                'profile':profile,
-                'recent_comment':recent_comment
-                }
-        return render(request,"timeline-friends.html",context)
-
+    return render(request,"timeline-friends.html",context)
+    
 
 @login_required(login_url='login')
 def send_friend_request(request,userID):
